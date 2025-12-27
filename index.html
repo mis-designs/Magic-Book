@@ -1,75 +1,130 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Area Riservata</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
-    }
+<meta charset="UTF-8">
+<title>Area Riservata</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    #login {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
+<!-- BLOCCO INDICIZZAZIONE -->
+<meta name="robots" content="noindex, nofollow">
 
-    input {
-      padding: 10px;
-      font-size: 16px;
-      margin-top: 10px;
-    }
+<style>
+/* BLOCCO SELEZIONE TESTO */
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
-    button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
+/* STILE BASE */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+}
 
-    #content {
-      display: none;
-      height: 100vh;
-    }
+/* LOGIN */
+#login {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-  </style>
+input, button {
+  padding: 12px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+/* CONTENUTO */
+#content {
+  display: none;
+  position: relative;
+  height: 100vh;
+}
+
+/* IFRAME */
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* WATERMARK */
+.watermark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  color: rgba(255,255,255,0.15);
+  transform: rotate(-20deg);
+}
+</style>
 </head>
+
 <body>
 
+<!-- LOGIN -->
 <div id="login">
   <h2>Accesso riservato</h2>
   <input type="password" id="password" placeholder="Password">
   <button onclick="checkPassword()">Entra</button>
 </div>
 
+<!-- CONTENUTO -->
 <div id="content">
-  <iframe 
+  <div class="watermark">USO RISERVATO</div>
+
+  <iframe
     src="https://www.canva.com/design/DAG8uXItf0U/KOM4bDntarmP9GkeXsMfRw/view?embed"
     allowfullscreen>
   </iframe>
 </div>
 
 <script>
-  function checkPassword() {
-    const pwd = document.getElementById("password").value;
-    if (pwd === "1234") {   // CAMBIA QUI LA PASSWORD
-      document.getElementById("login").style.display = "none";
-      document.getElementById("content").style.display = "block";
-    } else {
-      alert("Password errata");
-    }
+/* PASSWORD */
+function checkPassword() {
+  const pwd = document.getElementById("password").value;
+  if (pwd === "39tmm905") {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("content").style.display = "block";
+  } else {
+    alert("Password errata");
   }
+}
+
+/* BLOCCO CLIC DESTRO (PC) */
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+/* BLOCCO TASTI COMUNI */
+document.addEventListener("keydown", function(e) {
+  if (
+    e.key === "PrintScreen" ||
+    (e.ctrlKey && e.key === "s") ||
+    (e.ctrlKey && e.key === "u") ||
+    (e.ctrlKey && e.key === "p")
+  ) {
+    e.preventDefault();
+  }
+});
+
+/* BLOCCO LONG PRESS MOBILE */
+document.addEventListener("touchstart", function(e) {
+  if (e.touches.length > 1) e.preventDefault();
+}, { passive: false });
+
+document.addEventListener("gesturestart", e => e.preventDefault());
 </script>
 
 </body>
